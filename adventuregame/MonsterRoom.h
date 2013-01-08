@@ -10,7 +10,7 @@
 #include "Enemy.h"
 #include <sstream>
 #include "MoveCommand.h"
-#include "globals.h"
+#include "GameOverException.h"
 ////////////////////////////////////////////////////////////////////////////////
 class MonsterRoom : public Room
 {

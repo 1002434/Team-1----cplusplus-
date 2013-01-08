@@ -21,6 +21,9 @@
 #include "MonsterRoom.h"
 #include "Chambers.h"
 #include "globals.h"
+#include "InvalidCommandException.h"
+#include "GameOverException.h"
+
 #include <ctime>
 ////////////////////////////////////////////////////////////////////////////////
 using namespace std;
