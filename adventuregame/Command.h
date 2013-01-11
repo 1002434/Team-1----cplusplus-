@@ -23,6 +23,9 @@ public:
   // Mutator
   void SetGame( Game *pGame ) { m_pGame = pGame; }
 
+  //---- Nina Ranta ----
+  friend class CommandFactory;
+
 };
 ////////////////////////////////////////////////////////////////////////////////
 #endif
