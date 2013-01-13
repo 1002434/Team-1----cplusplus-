@@ -14,5 +14,13 @@ public:
   {
     std::cout << str;
   }
+  
+  // Juha Perala - Added '<<' operator overloading for IRenderer
+  IRenderer& operator<<(const std::string & str)
+  {
+	std::cout << str;
+	return *this;
+  }
+  
 };
 ////////////////////////////////////////////////////////////////////////////////

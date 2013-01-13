@@ -31,10 +31,10 @@ using namespace std;
 #define YEAR 2011
 
 ////////////////////////////////////////////////////////////////////////////////
-Game::Game() : running(true)
+// Juha Perala - Added '<<' operator overloading for IRenderer
+Game::Game() : running(true), renderer(*new TextRenderer)
 {
-  renderer = new TextRenderer();
-
+  //renderer = new TextRenderer();
 
   rooms[kDungeon] = new Dungeon();
   rooms[kDungeon]->SetGame(this);
@@ -60,7 +60,9 @@ Game::Game() : running(true)
   
   currentRoom = rooms[kDungeon];
 
-
+  //--- Nina Ranta ---
+  gold.ZeroCountAmount(0);
+  //---
 
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,31 +72,33 @@ Game::~Game()
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Taneli Peltoniemi - Added the GameOverException, InvalidCommandException
+// Juha Perala - Added '<<' operator overloading for IRenderer
 void Game::Play()
 {
   string cmd;
-  renderer->Render("Welcome to Fiends'n'Frogs adventure game!\n");
+  
+  renderer << "Welcome to Fiends'n'Frogs adventure game!\n";
   ostringstream s;
   s << "by " << DEV_NAME << "(c) " << YEAR << ". Licensed under GPLv3.\n";
-  renderer->Render(s.str());
-  if(LoadGameState()) {
-  
-	renderer->Render("\nWe have loaded a saved game now!\n");
-  
-  } else {
+  renderer << s.str();
+  // if(LoadGameState()) {
+  //
+//	renderer->Render("\nWe have loaded a saved game now!\n");
+ // 
+ // } else {
 	Player::AskInfo(player);
-	renderer->Render("\nPlayer statistics:\n\n");
+	renderer << "\nPlayer statistics:\n\n";
 	player.PrintSummary();
-  }
-  renderer->Render("\nAnd behold, the adventure begins!\n");
+//  }
+  renderer << "\nAnd behold, the adventure begins!\n";
   
   player.SetGame(this);
   
   srand(time(NULL));
   while(running)
   {
-    renderer->Render(GetCurrentRoom()->GetDescription());
-	renderer->Render("\n> ");
+    renderer << GetCurrentRoom()->GetDescription();
+	renderer << "\n> ";
 
 	getline(cin,cmd);
 
@@ -107,22 +111,24 @@ void Game::Play()
 		GetCurrentRoom()->Update();
 	} catch(GameOverException &gameover) {
 		running = false;
-		renderer->Render(gameover.what());
+		renderer << gameover.what();
 	} catch(InvalidCommandException &invalidCommandException) {
-	    renderer->Render(invalidCommandException.what());
+	    renderer << invalidCommandException.what();
 	}
   }
   // final message to player
-  renderer->Render("Exiting, bye!\n");
+  renderer << "Exiting, bye!\n";
 }
 ////////////////////////////////////////////////////////////////////////////////
+// Juha Perala - Added '<<' operator overloading for IRenderer
 void
 Game::SetRenderer( IRenderer *pRenderer )
 {
-  renderer = pRenderer;
+  renderer = *pRenderer;
 }
 ////////////////////////////////////////////////////////////////////////////////
-IRenderer * 
+// Juha Perala - Added '<<' operator overloading for IRenderer
+IRenderer & 
 Game::GetRenderer() const
 {
   return renderer;
@@ -145,6 +151,15 @@ Game::GetPlayer()
 {
   return player;
 }
+////////////////////////////////////////////////////////////////////////////////
+//--- Nina Ranta ---
+Gold & 
+Game::GetGold()
+{
+  return gold;
+}
+
+//------------------
 ////////////////////////////////////////////////////////////////////////////////
 
 Room *
@@ -170,6 +185,9 @@ void Game::SaveGameState() {
 			savegame << player.GetGender() << "\r\n";
 			savegame << player.GetExperience() << "\r\n";
 			savegame << player.GetHitpoints() << "\r\n";
+			//--- Nina Ranta ---
+			savegame << gold.GetCountAmount() << "\r\n";
+			//------------------
 			savegame << currentRoom->GetRoomID() << "\r\n";
 
 			MonsterRoom *room = dynamic_cast<MonsterRoom*>(rooms[kMonster]);
@@ -194,6 +212,11 @@ int Game::LoadGameState() {
 		savegame >> cTmp; player.SetGender( (cTmp == 'm' ? Male : Female) );
 		savegame >> iTmp; player.SetExperience(iTmp);
 		savegame >> iTmp; player.SetHitpoints(iTmp);
+
+		//--- Nina Ranta ---
+		savegame >> iTmp; gold.SetCountAmount(iTmp);
+                //------------------
+		
 		savegame >> iTmp; currentRoom = rooms[iTmp];
 		
 		MonsterRoom *room = dynamic_cast<MonsterRoom*>(rooms[kMonster]);

@@ -23,6 +23,7 @@ Player::~Player()
   
 }
 ////////////////////////////////////////////////////////////////////////////////
+// Juha Perala - Added '<<' operator overloading for IRenderer
 void
 Player::Attack( GameObject *pObject )
 {
@@ -34,13 +35,13 @@ Player::Attack( GameObject *pObject )
     pObject->SetHitpoints(hp-1); 
     ostringstream s;
     s << GetName() << " hits!\n";
-    game->GetRenderer()->Render( s.str() );
+    game->GetRenderer() << s.str();
   }
   else
   {
     ostringstream s;
     s << GetName() << " misses!\n";
-    game->GetRenderer()->Render( s.str() );
+    game->GetRenderer() << s.str();
   }
 }
 ////////////////////////////////////////////////////////////////////////////////

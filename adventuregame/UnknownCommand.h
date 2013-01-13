@@ -16,7 +16,8 @@ public:
   
   void Execute()
   {
-    GetGame()->GetRenderer()->Render("I do not understand you.\n");
+    // Juha Perala - Added '<<' operator overloading for IRenderer
+    GetGame()->GetRenderer() << "I do not understand you.\n";
   }
 };
 ////////////////////////////////////////////////////////////////////////////////
