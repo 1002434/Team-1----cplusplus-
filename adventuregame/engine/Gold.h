@@ -36,6 +36,21 @@ public:
   void ZeroCountAmount( unsigned int count);
   // ----
   void SetAmount( unsigned int value );
+  
+  // ---- Taneli Peltoniemi -----
+  Gold& operator+=(const int& amount) {
+		c_nAmount += amount;
+		return *this;
+  }
+  Gold& operator+=(const Gold& gold) {
+		c_nAmount += gold.GetCountAmount();
+		return *this;
+  }
+  Gold& operator+=(const Gold* gold) {
+		c_nAmount += gold->GetAmount();
+		return *this;
+  }
+  
 };
 ////////////////////////////////////////////////////////////////////////////////
 #endif
