@@ -81,15 +81,15 @@ void Game::Play()
   ostringstream s;
   s << "by " << DEV_NAME << "(c) " << YEAR << ". Licensed under GPLv3.\n";
   renderer << s.str();
-  // if(LoadGameState()) {
-  //
-//	renderer->Render("\nWe have loaded a saved game now!\n");
- // 
- // } else {
+  if(LoadGameState()) {
+  
+	renderer << "\nWe have loaded a saved game now!\n";
+  
+  } else {
 	Player::AskInfo(player);
 	renderer << "\nPlayer statistics:\n\n";
 	player.PrintSummary();
-//  }
+  }
   renderer << "\nAnd behold, the adventure begins!\n";
   
   player.SetGame(this);
