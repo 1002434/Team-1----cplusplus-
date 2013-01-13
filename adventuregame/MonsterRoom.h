@@ -12,6 +12,7 @@
 #include "MoveCommand.h"
 #include "GameOverException.h"
 ////////////////////////////////////////////////////////////////////////////////
+// Juha Perala - Added '<<' operator overloading for IRenderer
 class MonsterRoom : public Room
 {
 private:
@@ -37,7 +38,7 @@ public:
       std::ostringstream s;
       Player & player = GetGame()->GetPlayer();
       s << e.GetName() << " attacks " << player.GetName() << "\n";
-      GetGame()->GetRenderer()->Render(s.str());
+      GetGame()->GetRenderer() << s.str();
 
       e.Attack(&player);
 	  
@@ -70,7 +71,7 @@ public:
       Player & player = GetGame()->GetPlayer();
       std::ostringstream s;
       s << player.GetName() << " attacks " << e.GetName() << "\n";
-      GetGame()->GetRenderer()->Render(s.str());
+      GetGame()->GetRenderer() << s.str();
       player.Attack( &e );
       // Change room description a bit
       if ( e.IsAlive() == false )
@@ -81,7 +82,7 @@ public:
     else 
     {
       // to encourage player to stop beating it further
-      GetGame()->GetRenderer()->Render("Whoa! You already got your pound of flesh out of that one. Literally.\n");
+      GetGame()->GetRenderer() << "Whoa! You already got your pound of flesh out of that one. Literally.\n";
     }
 
   }

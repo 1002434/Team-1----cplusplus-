@@ -22,8 +22,9 @@ public:
     }
     else 
     {
-      GetGame()->GetRenderer()->Render("Princess kisses you. You turn into a frog\n");
-      GetGame()->GetRenderer()->Render("Congratulations, you've completed the game!");
+	  // Juha Perala - Added '<<' operator overloading for IRenderer
+      GetGame()->GetRenderer() << "Princess kisses you. You turn into a frog\n";
+      GetGame()->GetRenderer() << "Congratulations, you've completed the game!";
       GetGame()->SetRunning(false);
     }
   }

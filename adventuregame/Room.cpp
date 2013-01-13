@@ -58,7 +58,8 @@ void
 Room::OnAttack( AttackCommand *pCommand )
 {
   // NO enemy , NO attack possibility
-  GetGame()->GetRenderer()->Render("Attack what? There's nothing there!\n");
+  // Juha Perala - Added '<<' operator overloading for IRenderer
+  GetGame()->GetRenderer() << "Attack what? There's nothing there!\n";
 }
 ////////////////////////////////////////////////////////////////////////////////
 void 

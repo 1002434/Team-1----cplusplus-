@@ -11,6 +11,8 @@ class IRenderer
 {
 public:
   virtual void Render( const std::string & str ) = 0;
+  // Juha Perala - Added '<<' operator overloading for IRenderer
+  virtual IRenderer& operator<<(const std::string & str) = 0;
 };
 ////////////////////////////////////////////////////////////////////////////////
 #endif

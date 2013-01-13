@@ -9,6 +9,7 @@
 #include "Room.h"
 #include "TextRenderer.h"
 ////////////////////////////////////////////////////////////////////////////////
+// Juha Perala - Added '<<' operator overloading for IRenderer
 void MoveCommand::Execute()
 {
   Room *pRoom = GetGame()->GetCurrentRoom();
@@ -17,7 +18,7 @@ void MoveCommand::Execute()
     if ( newRoom )
       GetGame()->SetCurrentRoom(newRoom);
     else
-      GetGame()->GetRenderer()->Render( "Cannot go that way\n");
+      GetGame()->GetRenderer() << "Cannot go that way\n";
   }
 }
 ////////////////////////////////////////////////////////////////////////////////

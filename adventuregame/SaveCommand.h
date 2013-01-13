@@ -17,7 +17,8 @@ public:
   {
     // Taneli Peltoniemi
 	GetGame()->SaveGameState();
-    GetGame()->GetRenderer()->Render("Game state saved!");
+	// Juha Perala - Added '<<' operator overloading for IRenderer
+    GetGame()->GetRenderer() << "Game state saved!";
   }
 };
 ////////////////////////////////////////////////////////////////////////////////
