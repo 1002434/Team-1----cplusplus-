@@ -52,8 +52,7 @@ GameObject::Attack( GameObject *pObject )
 		// with damage property.   
 		pObject->SetHitpoints(hp-1); 
 
-		// --- Nina Ranta --- removed cout
- and added renderer 
+		// --- Nina Ranta --- removed cout and added renderer 
 		ostringstream s;
     		s << GetName() << " hits!\n";
 		game->GetRenderer()->Render( s.str() );
