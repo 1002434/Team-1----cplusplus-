@@ -1,0 +1,32 @@
+////////////////////
+
+/// C++ Object-oriented Programming
+
+/// Adventure Game 6
+
+/// Reference answer
+
+/// anssi.grohn@pkamk.fi
+
+////////////////////
+
+#include "GoldFactory.h"
+
+#include "Gold.h"
+
+#include <cstdlib>
+
+////////////////////////////////////////////////////////////////////////////////
+
+Gold *
+GoldFactory::Create( size_t amount )
+
+{
+ 
+	Gold *pG = new Gold(amount);
+  
+	return pG;
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
