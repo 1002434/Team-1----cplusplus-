@@ -30,7 +30,7 @@ public:
       // ---- Nina Ranta----
 	  // ---- Taneli Peltoniemi, added operator overloading to Gold class ----
       //int ad = g->GetAmount();
-	  GetGame()->GetGold() += g;
+	  GetGame()->GetGold() += *g;
       //GetGame()->GetGold().SetCountAmount(ad) ;
       s << "You have now " << GetGame()->GetGold().GetCountAmount() << " amount of gold!\n";
       // ----
