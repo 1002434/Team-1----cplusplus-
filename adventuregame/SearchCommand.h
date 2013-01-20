@@ -10,7 +10,7 @@
 #include "GoldFactory.h"
 #include "Gold.h"
 #include "Game.h"
-#include <sstream>
+//#include <sstream>
 #include "IRenderer.h"
 ////////////////////////////////////////////////////////////////////////////////
 // Juha Perala - Added '<<' operator overloading for IRenderer
@@ -24,18 +24,18 @@ public:
     {
       GoldFactory f;
       Gold *g = f.Create( 1+rand()%100 );
-      std::ostringstream s;
-      s << "You found " << g->GetAmount() << " gold!\n";
+      //std::ostringstream s;
+      GetGame()->GetRenderer() << "You found " << g->GetAmount() << " gold!\n";
       
       // ---- Nina Ranta----
 	  // ---- Taneli Peltoniemi, added operator overloading to Gold class ----
       //int ad = g->GetAmount();
 	  GetGame()->GetGold() += g;
       //GetGame()->GetGold().SetCountAmount(ad) ;
-      s << "You have now " << GetGame()->GetGold().GetCountAmount() << " amount of gold!\n";
+      GetGame()->GetRenderer() << "You have now " << GetGame()->GetGold().GetCountAmount() << " amount of gold!\n";
       // ----
       
-      GetGame()->GetRenderer() << s.str();
+      //GetGame()->GetRenderer() << s.str();
       delete g;
     }
     else {
