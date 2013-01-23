@@ -24,7 +24,7 @@ GameObject::~GameObject()
   
 }
 /////////////////////////////////////////////////////////////////////////
-void
+/*void
 GameObject::Attack( GameObject *pObject )
 {
 	int hp = pObject->GetHitpoints();
@@ -37,6 +37,32 @@ GameObject::Attack( GameObject *pObject )
   	else
     		cout << GetName() << " misses!\n";
 }
+*/
+
+void
+GameObject::Attack( GameObject *pObject )
+{
+  
+	int hp = pObject->GetHitpoints();
+	if ( (rand() % 10) < 6 )
+	{
+		// TODO: convert this into weapon 
+		// with damage property.   
+		pObject->SetHitpoints(hp-1); 
+
+		// --- Nina Ranta --- removed cout
+		ostringstream s;
+    		s << GetName() << " hits!\n";	
+	}
+  
+	else
+  	{
+    		ostringstream s;
+    		s << GetName() << " misses!\n";
+    		// ----
+  	}
+}
+
 
 /////////////////////////////////////////////////////////////////////////
 int 
