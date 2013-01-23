@@ -24,21 +24,6 @@ GameObject::~GameObject()
   
 }
 /////////////////////////////////////////////////////////////////////////
-/*void
-GameObject::Attack( GameObject *pObject )
-{
-	int hp = pObject->GetHitpoints();
-	if ( (rand() % 10) < 6 )
-	{
-    		pObject->SetHitpoints(hp-1); 
-    		cout << GetName() << " hits!\n";
-  	}
-  		
-  	else
-    		cout << GetName() << " misses!\n";
-}
-*/
-
 void
 GameObject::Attack( GameObject *pObject )
 {
@@ -50,18 +35,16 @@ GameObject::Attack( GameObject *pObject )
 		// with damage property.   
 		pObject->SetHitpoints(hp-1); 
 
-		// --- Nina Ranta --- removed cout and added operator << overloading renderer (copied from Juha)
+		// --- Nina Ranta --- removed cout
 		ostringstream s;
     		s << GetName() << " hits!\n";
-    		game->GetRenderer() << s.str();
 	}
   
 	else
   	{
+  		// --- Nina Ranta --- removed cout
     		ostringstream s;
     		s << GetName() << " misses!\n";
-    		game->GetRenderer() << s.str();
-    		// ----
   	}
 }
 
