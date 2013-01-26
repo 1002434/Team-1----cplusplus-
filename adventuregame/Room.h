@@ -8,6 +8,8 @@
 #define __Room_h__
 ////////////////////////////////////////////////////////////////////////////////
 #include <string>
+// --- Nina Ranta ---
+#include <deque>
 #include "Updateable.h"
 #include "globals.h"
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,10 +20,11 @@ class Game;
 class Room : public Updateable 
 {
 private:
-  Room *        rooms[kNumDirs];
-  std::string   description;
-  Game *        game;
-  int 			id;
+  //Room * rooms[kNumDirs];
+  std::deque<Room *> rooms;
+  std::string description;
+  Game * game;
+  int id;
 public:
 
   Room(int id);

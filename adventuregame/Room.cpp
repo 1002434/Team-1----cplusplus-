@@ -9,14 +9,17 @@
 #include "Game.h"
 #include "IRenderer.h"
 #include <cstdlib>
+// --- Nina Ranta ---
+#include <deque>
 ////////////////////////////////////////////////////////////////////////////////
 Room::Room(int id)
 {
   this->id =id;
-  rooms[0] = NULL;
-  rooms[1] = NULL;
-  rooms[2] = NULL;
-  rooms[3] = NULL;
+  // --- Nina Ranta --- inserts every element with value NULL
+  rooms.push_back(NULL);
+  rooms.push_back(NULL);
+  rooms.push_back(NULL);
+  rooms.push_back(NULL);
 }
 ////////////////////////////////////////////////////////////////////////////////
 Room::~Room()
@@ -27,13 +30,15 @@ Room::~Room()
 void
 Room::SetNextRoom( Direction d, Room * pRoom )
 {
-  rooms[d] = pRoom;
+  // --- Nina Ranta --- Returns a reference to the element 'at' position
+  rooms.at(d) = pRoom;
 }
 ////////////////////////////////////////////////////////////////////////////////
 Room * 
 Room::GetNextRoom( Direction d )
 {
-  return rooms[d];
+  // --- Nina Ranta --- Returns a reference to the element 'at' position
+  return rooms.at(d);
 }
 ////////////////////////////////////////////////////////////////////////////////
 void 
