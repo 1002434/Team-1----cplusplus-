@@ -12,7 +12,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include <vector> // --- Nina Ranta ---
+ // --- Nina Ranta ---
+#include <vector>
 #include "TextRenderer.h"
 #include <sstream>
 #include "IRenderer.h"
@@ -37,7 +38,7 @@ Game::Game() : running(true), renderer(*new TextRenderer)
 {
   //renderer = new TextRenderer();
 
-  // --- Nina Ranta --- room numbers & Juha Pelälä --- push_back();
+  // --- Nina Ranta --- room numbers & Juha Pelï¿½lï¿½ --- push_back();
   //rooms[kDungeon] = new Dungeon();
   rooms.push_back(new Dungeon());
   rooms[0]->SetGame(this);
