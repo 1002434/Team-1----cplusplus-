@@ -17,6 +17,7 @@
 #include <string>
 #include <iostream>
 #include "InvalidCommandException.h"
+#include "PotionCommand.h"
 ////////////////////////////////////////////////////////////////////////////////
 using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,6 +78,10 @@ CommandFactory::Create( const std::string & str )
   if( word == "save") 
   {
 	return new SaveCommand(m_pGame);
+  }
+  if( word == "potion")
+  {
+    return new PotionCommand(m_pGame);
   }
   // Taneli Peltoniemi
   throw InvalidCommandException();

@@ -46,7 +46,10 @@ public:
 		c_nAmount += gold.GetCountAmount();
 		return *this;
   }
-  
+  Gold& operator+=(const Gold* gold) {
+		c_nAmount += gold->GetAmount();
+		return *this;
+  }
 };
 ////////////////////////////////////////////////////////////////////////////////
 #endif

@@ -11,11 +11,14 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include "HealthPotion.h"
+#include <algorithm>
 using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 Player::Player()
 {
   SetHitpoints(3);
+  potions.push(new HealthPotion());
 }
 ////////////////////////////////////////////////////////////////////////////////
 Player::~Player()
@@ -98,3 +101,19 @@ Player::SetGame( Game * game )
   this->game = game;
 }
 ////////////////////////////////////////////////////////////////////////////////
+void 
+Player::UsePotion() {
+	if(potions.empty()) {
+		game->GetRenderer() << "You don't have any potions left\n";
+	} else {
+		HealthPotion *potion = potions.top();
+		if(potion != NULL) {
+		
+			int hitpoints = min(3, GetHitpoints() + potion->GetHealAmount());
+			SetHitpoints(hitpoints);
+			potions.pop();
+			
+			game->GetRenderer() << "You have been healed to " << hitpoints << " hitpoints\n";
+		}
+	}
+}
