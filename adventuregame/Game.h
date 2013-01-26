@@ -15,6 +15,7 @@ enum RoomId { kDungeon, kHallway, kMonster, kChambers, kNumRooms };
 #include "Enemy.h"
 //-- Nina Ranta --
 #include "Gold.h"
+#include <vector>
 //----
 ////////////////////////////////////////////////////////////////////////////////
 // Juha Perala - Added '<<' operator overloading for IRenderer
@@ -27,7 +28,9 @@ private:
   Gold gold;
   //----
   IRenderer& renderer;
-  Room *rooms[kNumRooms]; ///< Map.
+  //Room *rooms[kNumRooms]; ///< Map.
+  // --- Nina Ranta ---
+  std::vector <Room *> rooms;
   Room *currentRoom;
 public:
   Game();

@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <vector> // --- Nina Ranta ---
 #include "TextRenderer.h"
 #include <sstream>
 #include "IRenderer.h"
@@ -36,29 +37,34 @@ Game::Game() : running(true), renderer(*new TextRenderer)
 {
   //renderer = new TextRenderer();
 
-  rooms[kDungeon] = new Dungeon();
-  rooms[kDungeon]->SetGame(this);
+  // --- Nina Ranta --- room numbers & Juha Pelälä --- push_back();
+  //rooms[kDungeon] = new Dungeon();
+  rooms.push_back(new Dungeon());
+  rooms[0]->SetGame(this);
 
-  rooms[kHallway] = new Hallway();
-  rooms[kHallway]->SetGame(this);
+  //rooms[kHallway] = new Hallway();
+  rooms.push_back(new Hallway());
+  rooms[1]->SetGame(this);
 
-  rooms[kMonster] = new MonsterRoom();
-  rooms[kMonster]->SetGame(this);
+  //rooms[kMonster] = new MonsterRoom();
+  rooms.push_back(new MonsterRoom());
+  rooms[2]->SetGame(this);
+
+  //rooms[kChambers] = new Chambers();
+  rooms.push_back(new Chambers());
+  rooms[3]->SetGame(this);
   
-  rooms[kChambers] = new Chambers();
-  rooms[kChambers]->SetGame(this);
+  rooms[0]->SetNextRoom(North,rooms[1]);
 
-  rooms[kDungeon]->SetNextRoom(North,rooms[kHallway]);
+  rooms[1]->SetNextRoom(South,rooms[0]);
+  rooms[1]->SetNextRoom(North,rooms[2]);
 
-  rooms[kHallway]->SetNextRoom(South,rooms[kDungeon]);
-  rooms[kHallway]->SetNextRoom(North,rooms[kMonster]);
+  rooms[2]->SetNextRoom(South,rooms[1]);
+  rooms[2]->SetNextRoom(North,rooms[3]);
 
-  rooms[kMonster]->SetNextRoom(South,rooms[kHallway]);
-  rooms[kMonster]->SetNextRoom(North,rooms[kChambers]);
-
-  rooms[kChambers]->SetNextRoom(South,rooms[kMonster]);
+  rooms[3]->SetNextRoom(South,rooms[2]);
   
-  currentRoom = rooms[kDungeon];
+  currentRoom = rooms[0];
 
   //--- Nina Ranta ---
   gold.ZeroCountAmount(0);
@@ -190,7 +196,8 @@ void Game::SaveGameState() {
 			//------------------
 			savegame << currentRoom->GetRoomID() << "\r\n";
 
-			MonsterRoom *room = dynamic_cast<MonsterRoom*>(rooms[kMonster]);
+			// ---- Nina Ranta --- rooms[kMonster]
+			MonsterRoom *room = dynamic_cast<MonsterRoom*>(rooms[2]); 
 			if(room != NULL) {
 				savegame << room->GetEnemy().GetHitpoints() << "\r\n";
 			}
@@ -218,8 +225,9 @@ int Game::LoadGameState() {
                 //------------------
 		
 		savegame >> iTmp; currentRoom = rooms[iTmp];
-		
-		MonsterRoom *room = dynamic_cast<MonsterRoom*>(rooms[kMonster]);
+	
+		 // --- Nina Ranta --- rooms[kMonster]	
+		MonsterRoom *room = dynamic_cast<MonsterRoom*>(rooms[2]);
 		if(room != NULL) {
 			savegame >> iTmp;
 			room->GetEnemy().SetHitpoints(iTmp);
