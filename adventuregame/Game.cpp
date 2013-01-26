@@ -38,7 +38,7 @@ Game::Game() : running(true), renderer(*new TextRenderer)
 {
   //renderer = new TextRenderer();
 
-  // --- Nina Ranta --- room numbers & Juha Pel�l� --- push_back();
+  // --- Nina Ranta --- room numbers & Juha Perala--- push_back();
   //rooms[kDungeon] = new Dungeon();
   rooms.push_back(new Dungeon());
   rooms[0]->SetGame(this);
