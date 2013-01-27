@@ -101,6 +101,9 @@ void Game::Play()
   
   player.SetGame(this);
   
+  // Juha Perala - create CommandFactory once
+  CommandFactory comm(this);
+  
   srand(time(NULL));
   while(running)
   {
@@ -110,10 +113,11 @@ void Game::Play()
 	getline(cin,cmd);
 
 	try {
-		CommandFactory comm(this);
+		//CommandFactory comm(this);
 		ICommand *pCommand = comm.Create( cmd ); 
 		if ( pCommand ) pCommand->Execute();
-			delete pCommand;
+		// Juha Perala - no need to delete, destructor handles it
+			//delete pCommand;
 
 		GetCurrentRoom()->Update();
 	} catch(GameOverException &gameover) {
