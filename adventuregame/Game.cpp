@@ -75,10 +75,7 @@ Game::Game() : running(true), renderer(*new TextRenderer)
 ////////////////////////////////////////////////////////////////////////////////
 Game::~Game()
 {
-	while(!rooms.empty()) {
-		delete (*rooms.begin());
-	}
-	rooms.clear();
+	
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Taneli Peltoniemi - Added the GameOverException, InvalidCommandException
