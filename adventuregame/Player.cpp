@@ -52,12 +52,12 @@ void
 Player::PrintSummary()
 {
 
-  cout << "Name:" << GetName() << "\n";
-  cout << "Race: " <<  GetRace() << "\n";
-  cout << "Class: " << GetClass() << "\n";
-  cout << "age: " << GetAge() << "\n";
-  cout << "gender: " << GetGender() << "\n";
-  cout << "experience: " << GetExperience() << "\n";
+  game->GetRenderer() << "Name:" << GetName() << "\n";
+  game->GetRenderer() << "Race: " <<  GetRace() << "\n";
+  game->GetRenderer() << "Class: " << GetClass() << "\n";
+  game->GetRenderer() << "age: " << GetAge() << "\n";
+  game->GetRenderer() << "gender: " << GetGender() << "\n";
+  game->GetRenderer() << "experience: " << GetExperience() << "\n";
 }
 ////////////////////////////////////////////////////////////////////////////////
 void
@@ -108,12 +108,17 @@ Player::UsePotion() {
 	} else {
 		HealthPotion *potion = potions.top();
 		if(potion != NULL) {
-		
-			int hitpoints = min(3, GetHitpoints() + potion->GetHealAmount());
-			SetHitpoints(hitpoints);
-			potions.pop();
 			
-			game->GetRenderer() << "You have been healed to " << hitpoints << " hitpoints\n";
+			if(GetHitpoints() < 3) {
+		
+				int hitpoints = min(3, GetHitpoints() + potion->GetHealAmount());
+				SetHitpoints(hitpoints);
+				potions.pop();
+			
+				game->GetRenderer() << "You have been healed to " << hitpoints << " hitpoints\n";
+			} else {
+				game->GetRenderer() << "You are currently at full HP. Can't use potion(s)\n";
+			}
 		}
 	}
 }

@@ -1,5 +1,5 @@
 #include "HealthPotion.h"
-
+// Taneli Peltoniemi
 HealthPotion::HealthPotion() {
 	amount = 5;
 }

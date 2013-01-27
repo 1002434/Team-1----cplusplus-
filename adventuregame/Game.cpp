@@ -41,37 +41,6 @@ Game::Game() : running(true), renderer(*new TextRenderer)
   // --- Nina Ranta --- room numbers & Juha Perala--- push_back();
   //rooms[kDungeon] = new Dungeon();
   
-  Room *dungeon = new Dungeon();
-  Room *hallway = new Hallway();
-  Room *monsterRoom = new MonsterRoom();
-  Room *chambers = new Chambers();
-  
-  dungeon->SetNextRoom(North, hallway);
-  hallway->SetNextRoom(South, dungeon);
-  hallway->SetNextRoom(North, monsterRoom);
-  monsterRoom->SetNextRoom(South, hallway);
-  monsterRoom->SetNextRoom(North, chambers);
-  chambers->SetNextRoom(South, monsterRoom);
-  
-  rooms.push_back(dungeon);
-  rooms.push_back(hallway);
-  rooms.push_back(monsterRoom);
-  rooms.push_back(chambers);
-  
-  currentRoom = dungeon;
-  
-  vector<Room*>::iterator it;
-  for(it = rooms.begin(); it != rooms.end(); it++) {
-	(*it)->SetGame(this);
-  }
-   
-  
-  /*
-  
-  
-  
-  
-  
   rooms.push_back(new Dungeon());
   rooms[0]->SetGame(this);
 
@@ -98,7 +67,6 @@ Game::Game() : running(true), renderer(*new TextRenderer)
   rooms[3]->SetNextRoom(South,rooms[2]);
   
   currentRoom = rooms[0];
-*/
   //--- Nina Ranta ---
   gold.ZeroCountAmount(0);
   //---
@@ -109,8 +77,8 @@ Game::~Game()
 {
 	while(!rooms.empty()) {
 		delete (*rooms.begin());
-		rooms.erase(rooms.begin());
 	}
+	rooms.clear();
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Taneli Peltoniemi - Added the GameOverException, InvalidCommandException
@@ -123,6 +91,8 @@ void Game::Play()
   ostringstream s;
   s << "by " << DEV_NAME << "(c) " << YEAR << ". Licensed under GPLv3.\n";
   renderer << s.str();
+  
+  player.SetGame(this);
   if(LoadGameState()) {
   
 	renderer << "\nWe have loaded a saved game now!\n";
@@ -136,6 +106,9 @@ void Game::Play()
   
   player.SetGame(this);
   
+  // Juha Perala - create CommandFactory once
+  CommandFactory comm(this);
+  
   srand(time(NULL));
   while(running)
   {
@@ -145,10 +118,11 @@ void Game::Play()
 	getline(cin,cmd);
 
 	try {
-		CommandFactory comm(this);
+		//CommandFactory comm(this);
 		ICommand *pCommand = comm.Create( cmd ); 
 		if ( pCommand ) pCommand->Execute();
-			delete pCommand;
+		// Juha Perala - no need to delete, destructor handles it
+			//delete pCommand;
 
 		GetCurrentRoom()->Update();
 	} catch(GameOverException &gameover) {
