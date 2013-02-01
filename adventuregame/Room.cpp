@@ -21,6 +21,7 @@ using namespace std;
 Room::Room(int id)
 {
   this->id =id;
+  // --- Nina Ranta ---
   this->numOfDir = 4;
 
   // --- Nina Ranta --- fill all of the elements of a vector of NULL value
@@ -36,7 +37,8 @@ Room::Room(int id)
   rooms.push_back(NULL);
   rooms.push_back(NULL);
   rooms.push_back(NULL);
-
+  
+  // --- Nina Ranta --- count and exception_ptr
   int eCount = count(rooms.begin(), rooms.end(), NULL);
 
   exception_ptr eptr;
