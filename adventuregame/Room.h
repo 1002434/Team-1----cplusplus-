@@ -9,9 +9,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <string>
 // --- Nina Ranta ---
-#include <deque>
+//#include <deque>
+#include <vector>
+#include <algorithm>
+#include <exception>
+// ---
 #include "Updateable.h"
 #include "globals.h"
+
+using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 class MoveCommand;
 class AttackCommand;
@@ -21,18 +27,24 @@ class Room : public Updateable
 {
 private:
   //Room * rooms[kNumDirs];
-  std::deque<Room *> rooms;
-  std::string description;
+  // --- Nina Ranta ---
+  //deque<Room *> rooms;
+  vector<Room *> rooms;
+  // ---
+  string description;
   Game * game;
   int id;
+  // --- Nina Ranta --- number of directions to go
+  int numOfDir;
 public:
-
+  // --- Nina Ranta ---
+  void Handle_eptr(exception_ptr eptr);
   Room(int id);
   virtual ~Room();
   void SetGame( Game * pGame );
   Game * GetGame() const;
-  void SetDescription( const std::string & desc );
-  const std::string & GetDescription() const;
+  void SetDescription( const string & desc );
+  const string & GetDescription() const;
   void   SetNextRoom( Direction d, Room * pRoom );
   Room * GetNextRoom( Direction d );
   // Taneli Peltoniemi
