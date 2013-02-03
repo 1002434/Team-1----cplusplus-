@@ -49,11 +49,16 @@ CommandFactory::CommandFactory( Game *pGame ) : m_pGame(pGame)
 }
 
 // Juha Perala - map clean up
+// Juha Perala - added range based for loop
 CommandFactory::~CommandFactory()
 {
-	for(map<string,ICommand*>::iterator it = cmdMap.begin(); it != cmdMap.end(); it++)
+	/*for(map<string,ICommand*>::iterator it = cmdMap.begin(); it != cmdMap.end(); it++)
 	{
 		if (it->second) delete it->second;
+	}*/
+	for(auto& it : cmdMap)
+	{
+		if (it.second) delete it.second;
 	}
 	cmdMap.clear();
 }
