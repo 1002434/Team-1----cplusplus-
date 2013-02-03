@@ -39,14 +39,14 @@ Room::Room(int id)
   rooms.push_back(NULL);
   
   // --- Nina Ranta --- count and exception_ptr
-  int eCount = count(rooms.begin(), rooms.end(), NULL);
+  int eCount = count(rooms.begin(), rooms.end(), rooms[0]);
 
   exception_ptr eptr;
   try
   {
     if(eCount != numOfDir)
     {
-       throw GameOverException;
+       throw GameOverException("eCount != numOfDir");
     }
   }
 
@@ -79,8 +79,8 @@ Room::Handle_eptr(exception_ptr eptr)
  
   catch(const exception &e)
   {
-       running = false;
-       renderer << "Exception: Missmatch between vector and directions " << e.what();
+	   GetGame()->SetRunning(false);
+	   GetGame()->GetRenderer() << "Exception: Missmatch between vector and directions " << e.what();
   }
 }
 ////////////////////////////////////////////////////////////////////////////////

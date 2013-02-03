@@ -111,11 +111,15 @@ Player::UsePotion() {
 			
 			if(GetHitpoints() < 3) {
 		
-				int hitpoints = min(3, GetHitpoints() + potion->GetHealAmount());
-				SetHitpoints(hitpoints);
-				potions.pop();
 			
-				game->GetRenderer() << "You have been healed to " << hitpoints << " hitpoints\n";
+				auto heal = [] (GameObject* object, int maxHP, int amount) {
+					int hitpoints = min(maxHP, object->GetHitpoints() + amount);
+					object->SetHitpoints(hitpoints);
+				};
+	
+				heal(this, 3, potion->GetHealAmount());
+				
+				game->GetRenderer() << "You have been healed to " << GetHitpoints() << " hitpoints\n";
 			} else {
 				game->GetRenderer() << "You are currently at full HP. Can't use potion(s)\n";
 			}

@@ -11,6 +11,7 @@
 #include "Player.h"
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 /////////////////////////////////////////////////////////////////////////
@@ -37,14 +38,14 @@ GameObject::Attack( GameObject *pObject )
 
 		// --- Nina Ranta --- removed cout
 		ostringstream s;
-    		s << GetName() << " hits!\n";
+		s << GetName().c_str() << " hits!\n";
 	}
   
 	else
   	{
   		// --- Nina Ranta --- removed cout
     		ostringstream s;
-    		s << GetName() << " misses!\n";
+			s << GetName().c_str() << " misses!\n";
   	}
 }
 
